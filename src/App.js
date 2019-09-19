@@ -6,15 +6,17 @@ import 'react-virtualized/styles.css';
 import './App.css';
 import Header from './components/header/header';
 import Students from './components/students/students';
+import StudentForm from './components/studentForm/studentForm';
 
 function App() {
   return (
     <Router>
-      <div>
+      <div className="App">
         <Header />
 
-        <div className="App">
-          <Route path="/" component={Students} />
+        <div className="content">
+          <Route path="/" component={Students} exact />
+          <Route path="/add" component={StudentForm} />
         </div>
       </div>
     </Router>

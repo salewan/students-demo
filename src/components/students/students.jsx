@@ -20,11 +20,11 @@ const list = [
 class Students extends React.PureComponent {
 
   render() {
-    return <AutoSizer disableHeight>
-      {({width}) =>
+    return <AutoSizer>
+      {({ height, width }) =>
         <Table
           width={width}
-          height={300}
+          height={height}
           headerHeight={30}
           rowHeight={30}
           rowCount={list.length}

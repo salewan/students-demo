@@ -1,12 +1,28 @@
-import React from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
+import React, {useState} from 'react';
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
+import {withRouter} from 'react-router-dom'
 
-const Header = () => {
+const Header = ({history}) => {
+  const [isOpen, setOpen] = useState(false);
 
-  return <Navbar color="light" light expand="md">
-    <NavbarBrand href="/">reactstrap</NavbarBrand>
-  </Navbar>
+  const toggle = () => setOpen(!isOpen);
+
+  const navigateAdd = () => history.push('/add');
+
+  return <>
+    <Navbar color="light" light expand="md">
+      <NavbarBrand href="/">reactstrap</NavbarBrand>
+      <NavbarToggler onClick={toggle} />
+      <Collapse isOpen={isOpen} navbar>
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+            <NavLink onClick={navigateAdd}>Add</NavLink>
+          </NavItem>
+        </Nav>
+      </Collapse>
+    </Navbar>
+  </>
 
 };
 
-export default Header;
+export default withRouter(Header);
