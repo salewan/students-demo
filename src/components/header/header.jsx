@@ -7,7 +7,8 @@ const Header = ({history}) => {
 
   const toggle = () => setOpen(!isOpen);
 
-  const navigateAdd = () => history.push('/add');
+  const navigateAdd = () => history.push('/student');
+  const navigateMain = () => history.push('/');
 
   return <>
     <Navbar color="light" light expand="md">
@@ -15,6 +16,9 @@ const Header = ({history}) => {
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ml-auto" navbar>
+          <NavItem>
+            <NavLink onClick={navigateMain}>Students</NavLink>
+          </NavItem>
           <NavItem>
             <NavLink onClick={navigateAdd}>Add</NavLink>
           </NavItem>

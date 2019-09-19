@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import 'react-virtualized/styles.css';
 
 import './App.css';
@@ -16,7 +16,7 @@ function App() {
 
         <div className="content">
           <Route path="/" component={Students} exact />
-          <Route path="/add" component={StudentForm} />
+          <Route path="/student" component={StudentForm} />
         </div>
       </div>
     </Router>
