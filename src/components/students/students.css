@@ -38,3 +38,16 @@
     font-size: 1em;
     color: #bdbdbd;
 }
+
+.ReactVirtualized__Table__row button {
+    line-height: 1;
+    display: none;
+}
+.ReactVirtualized__Table__row:hover button {
+    display: block;
+}
+
+.userName {
+    font-weight: bold;
+    font-size: 1.5em;
+}
