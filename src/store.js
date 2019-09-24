@@ -5,7 +5,9 @@ import rootReducer from './reducers/root.reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default function configureStore(initialState = {}) {
+const initialState = {students: {list: []}};
+
+export default function configureStore(initialState) {
   return createStore(
     rootReducer,
     initialState,

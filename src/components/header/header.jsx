@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-const Header = ({history}) => {
+import {addStudent} from '../../actions/students.action';
+import history from '../../history';
+
+const Header = ({addStudent}) => {
   const [isOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!isOpen);
 
-  const navigateAdd = () => history.push('/student');
   const navigateMain = () => history.push('/');
 
   return <>
@@ -20,7 +24,7 @@ const Header = ({history}) => {
             <NavLink onClick={navigateMain}>Students</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink onClick={navigateAdd}>Add</NavLink>
+            <NavLink onClick={addStudent}>Add</NavLink>
           </NavItem>
         </Nav>
       </Collapse>
@@ -29,4 +33,4 @@ const Header = ({history}) => {
 
 };
 
-export default withRouter(Header);
+export default connect(() => ({}), dispatch => bindActionCreators({addStudent}, dispatch))(Header);

@@ -1,16 +1,17 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { Router, Route, Link, NavLink } from "react-router-dom";
 import 'react-virtualized/styles.css';
 
 import './App.css';
+import history from './history';
 import Header from './components/header/header';
 import Students from './components/students/students';
 import StudentForm from './components/studentForm/studentForm';
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <div className="App">
         <Header />
 

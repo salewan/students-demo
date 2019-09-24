@@ -1,21 +1,11 @@
 import React, {useState} from 'react';
 import { Column, Table, AutoSizer} from 'react-virtualized';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import './students.css';
-
-const list = [
-  {
-    name: 'Ivan Ivanovich Ivanov',
-    born: '01.01.1990',
-    rate: 5
-  },
-  {
-    name: 'PetrPetrovich Petrov',
-    born: '02.02.1992',
-    rate: 54
-  },
-];
+import {deleteStudent, editStudent} from '../../actions/students.action';
 
 const rowClassName = ({index}) => {
   if (index < 0) {
@@ -25,12 +15,20 @@ const rowClassName = ({index}) => {
   }
 };
 
-const Students = () => {
+const Students = ({list, deleteStudent, editStudent}) => {
 
   const [deletionContext, setDeletionContext] = useState({isOpen: false, user: null});
 
   const closeDeletionModal = () => setDeletionContext({user: null, isOpen: false});
-  const openDeletionModal = (user) => () => setDeletionContext({user, isOpen: true});
+  const openDeletionModal = (user) => (evt) => {
+    setDeletionContext({user, isOpen: true});
+    evt.stopPropagation();
+  };
+
+  const _deleteStudent = () => {
+    deleteStudent(deletionContext.user);
+    closeDeletionModal();
+  };
 
   const cellRenderer = ({rowData, cellData}) => {
     return <div>
@@ -58,6 +56,7 @@ const Students = () => {
           rowGetter={({index}) => list[index]}
           headerClassName='headerColumn'
           rowClassName={rowClassName}
+          onRowClick={editStudent}
         >
           <Column
             label='Name'
@@ -89,11 +88,21 @@ const Students = () => {
         is going to be deleted.
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" onClick={closeDeletionModal}>Yes</Button>{' '}
+        <Button color="primary" onClick={_deleteStudent}>Yes</Button>{' '}
         <Button color="secondary" onClick={closeDeletionModal}>No</Button>
       </ModalFooter>
     </Modal>
   </>
 };
 
-export default Students;
+function mapStateToProps(state) {
+  return {
+    list: state.students.list
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({deleteStudent, editStudent}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Students);
