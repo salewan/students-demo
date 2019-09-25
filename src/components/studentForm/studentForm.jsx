@@ -29,6 +29,8 @@ class StudentForm extends React.Component {
         {
           ({handleSubmit, values, submitting}) => (
             <BSForm onSubmit={handleSubmit}>
+              <Field name="id" initialValue={form.id} component="hidden" />
+
               <Field
                 name="name"
                 validate={required}

@@ -5,6 +5,16 @@ import {
   UPDATE_STUDENT_SUCCESS
 } from '../actions/students.action';
 
+
+function indexOf(list, id) {
+  for (let i = 0; i < list.length; i ++) {
+    if (list[i].id === id) {
+      return i;
+    }
+  }
+  return -1;
+}
+
 export default (state = {}, action) => {
   switch (action.type) {
     case SAVE_FORM:
@@ -15,17 +25,11 @@ export default (state = {}, action) => {
     case SUBMIT_STUDENT_SUCCESS:
       return {
         ...state,
-        list: [...state.list, {...action.values}],
+        list: [{...action.values}, ...state.list],
         form: null
       };
     case DELETE_STUDENT_SUCCESS:
-      let index = -1;
-      for (let i = 0; i < state.list.length; i ++) {
-        if (state.list[i].id === action.student.id) {
-          index = i;
-          break;
-        }
-      }
+      const index = indexOf(state.list, action.student.id);
       return {
         ...state,
         list: [...state.list.slice(0, index), ...state.list.slice(index + 1)]

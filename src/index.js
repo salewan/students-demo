@@ -6,9 +6,12 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 
 import configureStore from './store';
+import {getStudentList} from "./actions/api";
+
+const initialState = {students: {list: getStudentList()}};
 
 ReactDOM.render(
-  <Provider store={configureStore({students: {list: []}})}>
+  <Provider store={configureStore(initialState)}>
     <App />
   </Provider>,
   document.getElementById('root'));

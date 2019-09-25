@@ -1,5 +1,5 @@
-import uuid from 'uuid/v1';
 import history from '../history';
+import * as api from './api';
 
 export const SAVE_FORM = 'SAVE_FORM';
 export const SUBMIT_STUDENT_SUCCESS = 'SUBMIT_STUDENT_SUCCESS';
@@ -19,10 +19,21 @@ export function submitResults(values) {
 
   return async dispatch => {
     await sleep(500);
-    dispatch({
-      type: SUBMIT_STUDENT_SUCCESS,
-      values: {...values, id: uuid()}
-    });
+
+    if (!values.id) {
+      const newStudent = await api.createStudent({...values});
+      dispatch({
+        type: SUBMIT_STUDENT_SUCCESS,
+        values: {...newStudent}
+      });
+
+    } else {
+      await api.updateStudent({...values});
+      dispatch({
+        type: UPDATE_STUDENT_SUCCESS,
+        student: {...values}
+      })
+    }
 
     history.push('/');
   }
@@ -31,6 +42,7 @@ export function submitResults(values) {
 export function deleteStudent(student) {
   return async dispatch => {
     await sleep(500);
+    await api.deleteStudent({...student});
     dispatch({
       type: DELETE_STUDENT_SUCCESS,
       student
@@ -38,6 +50,7 @@ export function deleteStudent(student) {
   }
 }
 
+// this action initializes student form and then forward you to the form's page
 export function editStudent({rowData: student}) {
   return async dispatch => {
     dispatch({
@@ -49,6 +62,7 @@ export function editStudent({rowData: student}) {
   }
 }
 
+// this action clears the student form and then forward you to the form's page
 export function addStudent() {
   return dispatch => {
     dispatch({
