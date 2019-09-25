@@ -14,7 +14,7 @@ import {RATES} from './static/edu.constants';
 
 function genFakePersonalities() {
   const list = [];
-  for (let i = 0; i < 10; i ++) {
+  for (let i = 0; i < 1000; i ++) {
     list.push({
       id: uuid(),
       name: faker.name.findName(),
