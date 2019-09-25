@@ -15,8 +15,8 @@ const Header = ({addStudent}) => {
   const navigateMain = () => history.push('/');
 
   return <>
-    <Navbar color="light" light expand="md">
-      <NavbarBrand href="/">reactstrap</NavbarBrand>
+    <Navbar color="SoftMediaLab" light expand="md">
+      <NavbarBrand href="/">SoftMediaLab</NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ml-auto" navbar>
