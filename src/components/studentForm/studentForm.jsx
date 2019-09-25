@@ -1,21 +1,19 @@
 import React from 'react';
-import {Form, Field} from 'react-final-form';
-import { Button, Form as BSForm, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import {Field, Form} from 'react-final-form';
+import {Button, Form as BSForm} from 'reactstrap';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import './studentForm.css';
-import { RATES } from '../../static/edu.constants';
+import {RATES} from '../../static/edu.constants';
 import FormAutoSaver from '../common/formAutoSaver';
 import {saveForm, submitResults} from '../../actions/students.action';
+import {FormField, FormSelectField} from './formField';
 
 
 const required = value => (value ? undefined : 'Required');
 
 class StudentForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
 
   shouldComponentUpdate() {
     return false;
@@ -32,74 +30,37 @@ class StudentForm extends React.Component {
               <Field name="id" initialValue={form.id} component="hidden" />
 
               <Field
-                name="name"
-                validate={required}
-                placeholder="Full name"
                 id="name"
+                name="name"
+                _type="text"
+                placeholder="Full name"
                 initialValue={form.name}
-              >
-                {({input, meta, placeholder, id}) => (
-                  <FormGroup>
-                    <Label for={id}>{placeholder}</Label>
-                    <Input
-                      {...input}
-                      id={id}
-                      type="text"
-                      placeholder={placeholder}
-                      invalid={meta.touched && meta.error}
-                    />
-                    {meta.touched && meta.error && <FormFeedback>{meta.error}</FormFeedback>}
-                  </FormGroup>
-                )}
-              </Field>
-
-
-              <Field
-                name="born"
                 validate={required}
-                placeholder="Date of birth"
-                id="born"
-                initialValue={form.born}
-              >
-                {({input, meta, placeholder, id}) => (
-                  <FormGroup>
-                    <Label for={id}>{placeholder}</Label>
-                    <Input
-                      {...input}
-                      id={id}
-                      type="date"
-                      placeholder={placeholder}
-                      invalid={meta.touched && meta.error}
-                    />
-                    {meta.touched && meta.error && <FormFeedback>{meta.error}</FormFeedback>}
-                  </FormGroup>
-                )}
-              </Field>
+                component={FormField}
+              />
 
 
               <Field
+                id="born"
+                name="born"
+                _type="date"
+                placeholder="Date of birth"
+                initialValue={form.born}
+                validate={required}
+                component={FormField}
+              />
+
+
+
+              <Field
+                id="rate"
                 name="rate"
                 placeholder="Performance"
                 validate={required}
-                id="rate"
                 initialValue={form.rate || RATES[2]}
-              >
-                {({input, meta, placeholder, id}) => (
-                  <FormGroup>
-                    <Label for={id}>{placeholder}</Label>
-                    <Input
-                      {...input}
-                      id={id}
-                      type="select"
-                      name="select"
-                      invalid={meta.touched && meta.error}
-                    >
-                      {RATES.map((r, i) => (<option key={i}>{r}</option>))}
-                    </Input>
-                    {meta.touched && meta.error && <FormFeedback>{meta.error}</FormFeedback>}
-                  </FormGroup>
-                )}
-              </Field>
+                component={FormSelectField}
+                options={RATES}
+              />
 
               <FormAutoSaver debounce={300} save={saveForm}/>
 
