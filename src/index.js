@@ -3,15 +3,40 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import faker from 'faker';
+import uuid from 'uuid/v1';
+import moment from 'moment';
 
 import configureStore from './store';
-import {getStudentList} from "./actions/api";
+import {getStudentList, setStudentList} from "./actions/api";
+import {RATES} from './static/edu.constants';
 
-const initialState = {students: {list: getStudentList()}};
+function genFakePersonalities() {
+  const list = [];
+  for (let i = 0; i < 10; i ++) {
+    list.push({
+      id: uuid(),
+      name: faker.name.findName(),
+      born: moment(faker.date.past()).format('YYYY-MM-DD'),
+      rate: RATES[2]
+    })
+
+  }
+  return list;
+}
+
+const initialState = () => {
+  let list = getStudentList();
+  if (list.length === 0) {
+    list = genFakePersonalities();
+    setStudentList(list);
+  }
+  return {students: {list}};
+};
 
 ReactDOM.render(
-  <Provider store={configureStore(initialState)}>
+  <Provider store={configureStore(initialState())}>
     <App />
   </Provider>,
   document.getElementById('root'));

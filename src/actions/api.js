@@ -8,7 +8,7 @@ export function getStudentList() {
 }
 
 // utility method to store students in localStorage
-function setStudentList(list) {
+export function setStudentList(list) {
   localStorage.setItem(STUD, JSON.stringify(list));
 }
 
