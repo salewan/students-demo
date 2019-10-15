@@ -17,7 +17,8 @@ function App() {
 
         <div className="content">
           <Route path="/" component={Students} exact />
-          <Route path="/student" component={StudentForm} />
+          <Route path="/student/:id" component={StudentForm} />
+          <Route path="/student"  exact component={StudentForm} />
         </div>
       </div>
     </Router>

@@ -50,15 +50,15 @@ export function deleteStudent(student) {
   }
 }
 
-// this action initializes student form and then forward you to the form's page
-export function editStudent({rowData: student}) {
+export function editStudent(id) {
   return async dispatch => {
-    dispatch({
-      type: SAVE_FORM,
-      values: student
-    });
-
-    history.push('/student');
+    const student = await api.fetchStudent(id);
+    if (student && student.id === id) {
+      dispatch({
+        type: SAVE_FORM,
+        values: student
+      });
+    }
   }
 }
 

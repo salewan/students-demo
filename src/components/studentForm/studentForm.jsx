@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import './studentForm.css';
 import {RATES} from '../../static/edu.constants';
 import FormAutoSaver from '../common/formAutoSaver';
-import {saveForm, submitResults} from '../../actions/students.action';
+import {saveForm, submitResults, editStudent} from '../../actions/students.action';
 import {FormField, FormSelectField} from './formField';
 
 
@@ -15,12 +15,16 @@ const required = value => (value ? undefined : 'Required');
 
 class StudentForm extends React.Component {
 
-  shouldComponentUpdate() {
-    return false;
+  componentDidMount() {
+    const {match: {params: {id}}} = this.props;
+    if (id) {
+      this.props.editStudent(id);
+    }
   }
 
   render() {
     const {saveForm, submitResults, form} = this.props;
+    const {match: {params: {id}}} = this.props;
 
     return <>
       <Form onSubmit={submitResults}>
@@ -62,7 +66,7 @@ class StudentForm extends React.Component {
                 options={RATES}
               />
 
-              <FormAutoSaver debounce={300} save={saveForm}/>
+              {!id && <FormAutoSaver debounce={300} save={saveForm}/>}
 
               <Button disabled={submitting}>Submit</Button>
             </BSForm>
@@ -80,6 +84,6 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({saveForm, submitResults}, dispatch);
+  return bindActionCreators({saveForm, submitResults, editStudent}, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(StudentForm);

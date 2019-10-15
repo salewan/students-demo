@@ -5,7 +5,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import './students.css';
-import {deleteStudent, editStudent} from '../../actions/students.action';
+import {deleteStudent} from '../../actions/students.action';
+import history from '../../history';
 
 const rowClassName = ({index}) => {
   if (index < 0) {
@@ -15,7 +16,7 @@ const rowClassName = ({index}) => {
   }
 };
 
-const Students = ({list, deleteStudent, editStudent}) => {
+const Students = ({list, deleteStudent, ...rest}) => {
 
   const [deletionContext, setDeletionContext] = useState({isOpen: false, user: null});
 
@@ -56,7 +57,7 @@ const Students = ({list, deleteStudent, editStudent}) => {
           rowGetter={({index}) => list[index]}
           headerClassName='headerColumn'
           rowClassName={rowClassName}
-          onRowClick={editStudent}
+          onRowClick={({rowData}) => { history.push(`/student/${rowData.id}`) } }
         >
           <Column
             label='Name'
@@ -102,7 +103,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({deleteStudent, editStudent}, dispatch);
+  return bindActionCreators({deleteStudent}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Students);

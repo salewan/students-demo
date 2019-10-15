@@ -15,7 +15,7 @@ const FormAutoSaver = ({debounce, save, values}) => {
     return () => {
       if (timeout) clearTimeout(timeout)
     };
-  }, [timeout, debounce, save, values]);
+  }, [values]);
 
   return <div />;
 };

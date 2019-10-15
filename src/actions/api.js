@@ -46,3 +46,9 @@ export function deleteStudent(student) {
   setStudentList([...list.slice(0, index), ...list.slice(index + 1)]);
   return Promise.resolve("OK");
 }
+
+export function fetchStudent(id) {
+  const students = getStudentList();
+  const student = students.find(student => student.id === id);
+  return Promise.resolve(student);
+}
