@@ -16,14 +16,23 @@ const required = value => (value ? undefined : 'Required');
 class StudentForm extends React.Component {
 
   componentDidMount() {
-    const {match: {params: {id}}} = this.props;
+    const id = this.props.id;
     if (id) {
       this.props.editStudent(id);
     }
   }
 
+  globalSave = (values) => {
+    const id = this.props.id;
+    const copy = {...values};
+    if (id) {
+      copy.id = id;
+    }
+    this.props.saveForm(copy);
+  };
+
   render() {
-    const {saveForm, submitResults, form} = this.props;
+    const {submitResults, form} = this.props;
     const {match: {params: {id}}} = this.props;
 
     return <>
@@ -31,7 +40,6 @@ class StudentForm extends React.Component {
         {
           ({handleSubmit, values, submitting}) => (
             <BSForm onSubmit={handleSubmit}>
-              <Field name="id" initialValue={form.id} component="hidden" />
 
               <Field
                 id="name"
@@ -66,7 +74,7 @@ class StudentForm extends React.Component {
                 options={RATES}
               />
 
-              {!id && <FormAutoSaver debounce={300} save={saveForm}/>}
+              {!id && <FormAutoSaver debounce={300} save={this.globalSave}/>}
 
               <Button disabled={submitting}>Submit</Button>
             </BSForm>
@@ -77,13 +85,19 @@ class StudentForm extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+
   return {
-    form: state.students.form || {}
+    form: state.students.form || {},
+    id: ownProps.match.params.id
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({saveForm, submitResults, editStudent}, dispatch);
+  return bindActionCreators({
+    saveForm,
+    submitResults,
+    editStudent
+  }, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(StudentForm);
