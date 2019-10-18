@@ -4,7 +4,7 @@ const STUD = 'student_list';
 
 // utility method extracting students from localStorage
 export function getStudentList() {
-  return JSON.parse(localStorage.getItem(STUD) || "[]");
+  return JSON.parse(localStorage.getItem(STUD) || "[]").map(student => ({...student, born: new Date(student.born)}));
 }
 
 // utility method to store students in localStorage

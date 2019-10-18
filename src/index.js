@@ -18,7 +18,7 @@ function genFakePersonalities() {
     list.push({
       id: uuid(),
       name: faker.name.findName(),
-      born: moment(faker.date.past()).format('YYYY-MM-DD'),
+      born: faker.date.past(),
       rate: RATES[2]
     })
 

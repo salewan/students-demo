@@ -1,1 +1,1 @@
-export const RATES = ["неуд", "уд", "хор", "отл"];
+export const RATES = ["bad", "well", "good", "excellent"];

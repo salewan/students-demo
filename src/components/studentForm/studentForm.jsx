@@ -8,7 +8,7 @@ import './studentForm.css';
 import {RATES} from '../../static/edu.constants';
 import FormAutoSaver from '../common/formAutoSaver';
 import {saveForm, submitResults, editStudent} from '../../actions/students.action';
-import {FormField, FormSelectField} from './formField';
+import {FormField, FormSelectField, DateField} from './formField';
 
 
 const required = value => (value ? undefined : 'Required');
@@ -55,11 +55,10 @@ class StudentForm extends React.Component {
               <Field
                 id="born"
                 name="born"
-                _type="date"
-                placeholder="Date of birth"
+                label="Date of birth"
                 initialValue={form.born}
                 validate={required}
-                component={FormField}
+                component={DateField}
               />
 
 

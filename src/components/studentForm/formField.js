@@ -1,5 +1,6 @@
 import React from 'react';
 import {FormFeedback, FormGroup, Input, Label} from 'reactstrap';
+import DatePicker from 'react-date-picker';
 
 export const FormField = ({input, meta, placeholder, id, _type}) => (
   <FormGroup>
@@ -29,5 +30,15 @@ export const FormSelectField = ({input, meta, placeholder, id, options}) => (
       {options.map((r, i) => (<option key={i}>{r}</option>))}
     </Input>
     {meta.touched && meta.error && <FormFeedback>{meta.error}</FormFeedback>}
+  </FormGroup>
+);
+
+
+export const DateField = ({input, meta, id, label}) => (
+  <FormGroup>
+    <Label for={id}>{label}</Label>
+    <DatePicker
+      {...input}
+    />
   </FormGroup>
 );

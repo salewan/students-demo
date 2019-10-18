@@ -31,6 +31,10 @@ const Students = ({list, deleteStudent, ...rest}) => {
     closeDeletionModal();
   };
 
+  const dateRenderer = ({rowData, cellData}) => {
+    return rowData.born.toLocaleDateString();
+  };
+
   const cellRenderer = ({rowData, cellData}) => {
     return <div>
       {cellData}
@@ -70,6 +74,7 @@ const Students = ({list, deleteStudent, ...rest}) => {
             label='Born'
             dataKey='born'
             flexGrow={2}
+            cellRenderer={dateRenderer}
           />
           <Column
             width={200}
