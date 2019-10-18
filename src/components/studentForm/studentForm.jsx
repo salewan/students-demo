@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import './studentForm.css';
 import {RATES} from '../../static/edu.constants';
 import FormAutoSaver from '../common/formAutoSaver';
-import {saveForm, submitResults, editStudent} from '../../actions/students.action';
+import {saveFormLocally, submitResults, editStudent} from '../../actions/students.action';
 import {FormField, FormSelectField, DateField} from './formField';
 
 
@@ -22,21 +22,29 @@ class StudentForm extends React.Component {
     }
   }
 
-  globalSave = (values) => {
+  gatherForm = values => {
     const id = this.props.id;
     const copy = {...values};
     if (id) {
       copy.id = id;
     }
-    this.props.saveForm(copy);
+    return copy;
+  };
+
+  _saveFormLocally = (values) => {
+    this.props.saveFormLocally(this.gatherForm(values));
+  };
+
+  _submitResults = (values) => {
+    this.props.submitResults(this.gatherForm(values));
   };
 
   render() {
-    const {submitResults, form} = this.props;
+    const {form} = this.props;
     const {match: {params: {id}}} = this.props;
 
     return <>
-      <Form onSubmit={submitResults}>
+      <Form onSubmit={this._submitResults}>
         {
           ({handleSubmit, values, submitting}) => (
             <BSForm onSubmit={handleSubmit}>
@@ -59,6 +67,7 @@ class StudentForm extends React.Component {
                 initialValue={form.born}
                 validate={required}
                 component={DateField}
+                maxDate={new Date()}
               />
 
 
@@ -73,7 +82,7 @@ class StudentForm extends React.Component {
                 options={RATES}
               />
 
-              {!id && <FormAutoSaver debounce={300} save={this.globalSave}/>}
+              {!id && <FormAutoSaver debounce={300} save={this._saveFormLocally}/>}
 
               <Button disabled={submitting}>Submit</Button>
             </BSForm>
@@ -94,7 +103,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    saveForm,
+    saveFormLocally,
     submitResults,
     editStudent
   }, dispatch);

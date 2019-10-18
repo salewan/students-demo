@@ -36,11 +36,12 @@ export const FormSelectField = ({input, meta, placeholder, id, options}) => (
 );
 
 
-export const DateField = ({input, meta, id, label}) => (
+export const DateField = ({input, meta, id, label, ...rest}) => (
   <FormGroup>
     <Label for={id}>{label}</Label>
     <DatePicker
       {...input}
+      {...rest}
     />
   </FormGroup>
 );

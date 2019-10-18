@@ -6,7 +6,7 @@ export const SUBMIT_STUDENT_SUCCESS = 'SUBMIT_STUDENT_SUCCESS';
 export const DELETE_STUDENT_SUCCESS = 'DELETE_STUDENT_SUCCESS';
 export const UPDATE_STUDENT_SUCCESS = 'UPDATE_STUDENT_SUCCESS';
 
-export function saveForm(values) {
+export function saveFormLocally(values) {
   return {
     type: SAVE_FORM,
     values
@@ -16,7 +16,6 @@ export function saveForm(values) {
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export function submitResults(values) {
-
   return async dispatch => {
     await sleep(500);
 
