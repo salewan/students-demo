@@ -2,6 +2,8 @@ import React from 'react';
 import {FormFeedback, FormGroup, Input, Label} from 'reactstrap';
 import DatePicker from 'react-date-picker';
 
+import './formField.css';
+
 export const FormField = ({input, meta, placeholder, id, _type}) => (
   <FormGroup>
     <Label for={id}>{placeholder}</Label>
