@@ -14,13 +14,13 @@ const Header = ({addStudent}) => {
   const navigateMain = () => history.push('/');
 
   return <>
-    <Navbar color="SoftMediaLab" light expand="md">
-      <NavbarBrand href="/">SoftMediaLab</NavbarBrand>
+    <Navbar light expand="md">
+      <NavbarBrand href="/">Students</NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink onClick={navigateMain}>Students</NavLink>
+            <NavLink onClick={navigateMain}>List</NavLink>
           </NavItem>
           <NavItem>
             <NavLink onClick={addStudent}>Add</NavLink>

@@ -8,20 +8,3 @@
   flex-basis: 100%;
   padding: 10px;
 }
-
-.bg-SoftMediaLab {
-  background-color: #003883 !important;
-  font-weight: 700;
-}
-
-.navbar-brand {
-  color: #fff !important;
-}
-
-a.nav-link {
-  color: #87a9d5 !important;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-}
